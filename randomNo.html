@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.117.0/build/three.min.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      // Create a scene
+      const scene = new THREE.Scene();
+      
+      // Create a renderer
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      document.getElementById( "container" ).appendChild( renderer.domElement );
+      
+      // Create a camera
+      const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      camera.position.set( 0, 0, 100 );
+      camera.lookAt( 0, 0, 0 );
+      
+      // Create a random number generator
+      function random( min, max ) {
+        return Math.random() * ( max - min ) + min;
+      }
+      
+      // Create a cube
+      const geometry = new THREE.BoxGeometry( 20, 20, 20 );
+      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      const cube = new THREE.Mesh( geometry, material );
+      scene.add( cube );
+      
+      // Render the scene
+      function render() {
+        cube.rotation.x = random( -Math.PI, Math.PI );
+        cube.rotation.y = random( -Math.PI, Math.PI );
+        cube.rotation.z = random( -Math.PI, Math.PI );
+        renderer.render( scene, camera );
+        requestAnimationFrame( render );
+      }
+      render();
+    </script>
+  </body>
+</html>
